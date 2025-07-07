@@ -57,7 +57,7 @@ Se está trabajando en:
 RitualRoll/
 ├── 📜 Grimorio/               # 📖 Backend: lógica oculta, invocaciones API, controladores
 │   ├── Grimorio-FastAPI/              # Módulos del backend (e.g., Dados, Chat, PDF, Mapas)
-│   │   ├── dice/             # Lógica de dados y mecánicas
+│   │   ├── dados/             # Lógica de dados y mecánicas
 │   │   ├── chat/             # WebSockets para comunicación
 │   │   ├── pdfs/             # Lectura y escritura de PDFs interactivos
 │   │   └── tokens/           # Tokens, imágenes y avatares

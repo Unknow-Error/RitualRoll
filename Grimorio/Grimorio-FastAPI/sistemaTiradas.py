@@ -111,8 +111,7 @@ class TiradaCWoD_20(TiradaMultiple):
         -Falla: Cualquier dado que saque un número inferior a la dificultad.
         -Pifia (Falla crítica): Dado con 1. Si no hay éxitos (o muy pocos) y salen 1 o más 1s en los dados, se considera fracaso castastrófico.
     """
-    def __init__(self, dados = None, dificultad = 6, reglaDelDiez = True):
-        self.reglaDelDiez = reglaDelDiez # Si se aplica o no la regla del 10
+    def __init__(self, dados = None, dificultad = 6):
         super().__init__(dados, dificultad, 0, True)
         self.resultadoTirada = dict() # Se almacena el numero de exitos, exitos criticos, "regla del 10" y pifias
         self.resultadoTiradaJson = "" # Se almacena el resultado de la tirada en formato JSON
@@ -200,4 +199,4 @@ class TiradaCWoD_20(TiradaMultiple):
         return stringSalida
 
     def __repr__(self):
-        return f"TiradaCWoD_20({self.dados}, {self.dificultad}, {self.bonus}, {self.reglaDelDiez})"
+        return f"TiradaCWoD_20({self.dados}, {self.dificultad}, {self.bonus})"
