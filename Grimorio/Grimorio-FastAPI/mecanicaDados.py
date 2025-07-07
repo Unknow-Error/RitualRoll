@@ -14,13 +14,15 @@ class TiradaMultiple:
         self.valoresTirada = [] #Valores de los resultados de la tirada de cada dado
         self.valorNeto = 0 #Valor neto de la tirada
         self.valoresBooleanos = [] #Valores de exitos o fallas de cada dado (respecto a la dificultad a superar o al reves)
-        self.valoresJson = "" #Valores de los resultados de la tirada de cada dado en formato JSON
+        self.resultadosCompleto = dict()
+        self.resultadosCompletoJson = dict()
 
         if self.valoresTirada == []:
             self.tirar_dados()
             self.valor_neto()
             self.evaluar_exitos(self.modo)
-            self.tiradaMultiple_diccionario()
+            self.construir_resultado_completo()
+            self.transformar_a_Json()
 
     def tirar_dados(self):
         """
@@ -69,23 +71,33 @@ class TiradaMultiple:
 
         return resultados_booleanos
     
-    def tiradaMultiple_diccionario(self):
+    def construir_resultado_completo(self):
         """
-            Transforma el resultado de la tirada a un formato JSON.
+            Todos los resultados en un diccionario.
         """
 
-        valoresTiradaJson = {}
-        valoresTiradaJson["dados"] = [{"caras": dado.caras, "valores": dado.valores} for dado in self.dados] # Porque los objetos Dados no son JSON serializables.
-        valoresTiradaJson["dificultad"] = self.dificultad
-        valoresTiradaJson["bonus"] = self.bonus
-        valoresTiradaJson["modo"] = self.modo
-        valoresTiradaJson["valores"] = self.valoresTirada
-        valoresTiradaJson["valorNeto"] = self.valorNeto
-        valoresTiradaJson["valoresBooleanos"] = self.valoresBooleanos
+        resultadosTiradas = {}
+        resultadosTiradas["dados"] = [{"caras": dado.caras, "valores": dado.valores} for dado in self.dados] # Porque los objetos Dados no son JSON serializables.
+        resultadosTiradas["dificultad"] = self.dificultad
+        resultadosTiradas["bonus"] = self.bonus
+        resultadosTiradas["modo"] = self.modo
+        resultadosTiradas["valores"] = self.valoresTirada
+        resultadosTiradas["valorNeto"] = self.valorNeto
+        resultadosTiradas["valoresBooleanos"] = self.valoresBooleanos
         
-        self.valoresJson = valoresTiradaJson
+        self.resultadosCompleto = resultadosTiradas
       
-        return valoresTiradaJson
+        return resultadosTiradas
+    
+    def transformar_a_Json(self):
+        """
+            Formato de todos los resultados en JSON.
+        """
+        
+        resultadosComplejosJson = json.dump(self.resultadosCompleto)
+        self.resultadosCompletoJson = resultadosComplejosJson
+        
+        return resultadosComplejosJson
     
     def __str__(self):
         stringSalida = ""
@@ -114,12 +126,12 @@ class Tirada_CWoD_20(TiradaMultiple):
     def __init__(self, dados = None, dificultad = 6):
         super().__init__(dados, dificultad, 0, True)
         self.resultadoTirada = dict() # Se almacena el numero de exitos, exitos criticos, "regla del 10" y pifias
-        self.resultadoTiradaJson = "" # Se almacena el resultado de la tirada en formato JSON
+        self.resultadoTiradaJson = dict()
 
         if self.resultadoTirada == {}:
             self.tirar_dados()
             self.evaluar_exitos()
-            self.tiradaMultiple_json()
+            self.transformar_a_Json()
 
     def tirada_regla_del_diez(self):
         """

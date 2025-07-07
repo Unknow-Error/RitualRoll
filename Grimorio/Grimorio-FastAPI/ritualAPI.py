@@ -1,13 +1,26 @@
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from typing import Optional, List
+from ritualError import (
+    custom_http_exception_handler,
+    validation_exception_handler,
+    global_exception_handler
+)
+from mecanicaDados import Tirada_CWoD_20, TiradaMultiple
+from dados import Dado
+
+import uuid
 
 app = FastAPI()
 
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel
-from typing import Optional, List
-from mecanicaDados import Tirada_CWoD_20, TiradaMultiple
-from dados import Dado
-import uuid
+# Handlers de error personalizados:
+from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
+from fastapi import Request
+
+app.add_exception_handler(StarletteHTTPException, custom_http_exception_handler)
+app.add_exception_handler(RequestValidationError, validation_exception_handler)
+app.add_exception_handler(Exception, global_exception_handler)
 
 # Almacenamiento temporal en memoria
 tiradas_guardadas = {}
@@ -31,15 +44,12 @@ class TiradaMultipleEntrada(BaseModel):
 
 @app.post("/RitualRoll/dadoNumerico/")
 def crear_tirada_dado_num(input: DadoNumericoEntrada):
+    if input.caras <= 0:
+        raise HTTPException(status_code=422, detail="El dado debe tener al menos 1 cara.")
+    
     tirada_id = str(uuid.uuid4())
-       
-    try:
-        if input.caras <= 0:
-            raise ValueError("El dado debe tener al menos 1 cara.")
-        dado_obj = Dado(input.caras)
-        tirada = dado_obj.tirar()
-    except Exception as e:
-        raise HTTPException(status_code=422, detail=str(e))
+    
+    dado_obj = Dado(input.caras)
     
     tirada = dado_obj.tirar()
     tiradas_guardadas[tirada_id] = tirada
@@ -50,24 +60,17 @@ def crear_tirada_dado_num(input: DadoNumericoEntrada):
     }
 
 @app.post("/RitualRoll/tiradaMultiple/")
-def crear_tirada_multiple(input: TiradaMultipleEntrada):
-    tirada_id = str(uuid.uuid4())
-    
+def crear_tirada_multiple(input: TiradaMultipleEntrada):    
     for cara in input.caras:
         if cara <= 0:
-            raise ValueError("Cada dado debe tener al menos 1 cara.")
+            raise HTTPException(status_code=422, detail="El dado debe tener al menos 1 cara.")   
+
+    if not input.caras or len(input.caras) != input.dados:
+        raise HTTPException(status_code=422, detail="Debes pasar una lista de caras del mismo largo que la cantidad de dados.")
     
-    try:
-        if not input.caras or len(input.caras) != input.dados:
-            raise ValueError("Debes pasar una lista de caras del mismo largo que la cantidad de dados.")
+    tirada_id = str(uuid.uuid4())
 
-        dados_obj = [Dado(cara) for cara in input.caras]
-
-    except ValueError as e:
-        raise HTTPException(
-            status_code=422,
-            detail=str(e)
-        )
+    dados_obj = [Dado(cara) for cara in input.caras]
     
     tirada = TiradaMultiple(
         dados=dados_obj,
@@ -86,23 +89,18 @@ def crear_tirada_multiple(input: TiradaMultipleEntrada):
 
 @app.post("/RitualRoll/CWoD20/tirada/")
 def crear_tirada_CWoD_20(input: TiradaEntrada_CWod_20):
+    if input.dados <= 0:
+        raise HTTPException(status_code=422, detail="Debe haber al menos un dado en la tirada.")
+    
     tirada_id = str(uuid.uuid4())
-    
-    try:
-        if input.dados <= 0:
-            raise ValueError("Debe haber al menos un dado en la tirada.")
-        tirada_id = str(uuid.uuid4())
-        dados_obj = [Dado(10) for _ in range(input.dados)] # En WoD son todos 1D10.
-        tirada = Tirada_CWoD_20(dados=dados_obj, dificultad=input.dificultad)
-    except Exception as e:
-        raise HTTPException(status_code=422, detail=str(e))
-    
+    dados_obj = [Dado(10) for _ in range(input.dados)] # En WoD son todos 1D10.
     tirada = Tirada_CWoD_20(dados=dados_obj, dificultad=input.dificultad)
+
     tiradas_guardadas[tirada_id] = tirada
     
     return {
         "tirada_id": tirada_id,
-        "resultado": tirada.valoresTirada
+        "resultado": tirada.resultadoTirada
     }
 
 # Otra petición POST si aplica la regla de 10 en el resultado guardado de la tirada anterior.
@@ -111,7 +109,7 @@ def aplicar_regla_del_diez(tirada_id: str):
     tirada = tiradas_guardadas.get(tirada_id)
 
     if tirada is None:
-        return JSONResponse(status_code=404, content={"error": "Tirada no encontrada"})
+        raise HTTPException(status_code=404, detail={"Tirada no encontrada"})
 
     try:
         nuevos_valores = tirada.tirada_regla_del_diez()
