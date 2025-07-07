@@ -20,7 +20,7 @@ class TiradaMultiple:
             self.tirar_dados()
             self.valor_neto()
             self.evaluar_exitos(self.modo)
-            self.tiradaMultiple_json()
+            self.tiradaMultiple_diccionario()
 
     def tirar_dados(self):
         """
@@ -69,7 +69,7 @@ class TiradaMultiple:
 
         return resultados_booleanos
     
-    def tiradaMultiple_json(self):
+    def tiradaMultiple_diccionario(self):
         """
             Transforma el resultado de la tirada a un formato JSON.
         """
@@ -82,7 +82,7 @@ class TiradaMultiple:
         valoresTiradaJson["valores"] = self.valoresTirada
         valoresTiradaJson["valorNeto"] = self.valorNeto
         valoresTiradaJson["valoresBooleanos"] = self.valoresBooleanos
-        valoresTiradaJson = json.dumps(valoresTiradaJson)
+        
         self.valoresJson = valoresTiradaJson
       
         return valoresTiradaJson
