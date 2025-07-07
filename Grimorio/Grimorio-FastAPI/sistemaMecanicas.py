@@ -99,7 +99,7 @@ class TiradaMultiple:
     def __repr__(self):
         return f"TiradaMultiple({self.dados}, {self.dificultad}, {self.bonus}, {self.modo})"
     
-class TiradaCWoD_20(TiradaMultiple):
+class Tirada_CWoD_20(TiradaMultiple):
     """
         Clase para tiradas del sistema Classic World of Darkness 20th: tiene pifias, éxitos múltiples, especialización.
         Reglas:

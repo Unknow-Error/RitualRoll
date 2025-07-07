@@ -5,7 +5,7 @@ app = FastAPI()
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import Optional
-from sistemaTiradas import TiradaCWoD_20
+from sistemaMecanicas import Tirada_CWoD_20
 from dados import Dado
 import uuid
 
@@ -22,7 +22,7 @@ class TiradaEntrada_CWod_20(BaseModel):
 def crear_tirada_CWoD_20(input: TiradaEntrada_CWod_20):
     tirada_id = str(uuid.uuid4())
     dados_obj = [Dado(10) for _ in range(input.dados)] #Son todos dados de 1D10
-    tirada = TiradaCWoD_20(dados=dados_obj, dificultad=input.dificultad)
+    tirada = Tirada_CWoD_20(dados=dados_obj, dificultad=input.dificultad)
     tiradas_guardadas[tirada_id] = tirada
     return {
         "tirada_id": tirada_id,
