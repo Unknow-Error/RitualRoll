@@ -1,15 +1,16 @@
-import uuid
 from fastapi import FastAPI
+
+app = FastAPI()
+
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import Optional
 from sistemaTiradas import TiradaCWoD_20
 from dados import Dado
+import uuid
 
 # Almacenamiento temporal en memoria
 tiradas_guardadas = {}
-
-app = FastAPI()
 
 # Clase para realizar la petición POST
 class TiradaEntrada_CWod_20(BaseModel):
@@ -25,7 +26,7 @@ def crear_tirada_CWoD_20(input: TiradaEntrada_CWod_20):
     tiradas_guardadas[tirada_id] = tirada
     return {
         "tirada_id": tirada_id,
-        "resultado": JSONResponse(content=tirada.resultadoTirada)
+        "resultado": tirada.resultadoTirada
     }
 
 # Otra petición POST si aplica la regla de 10 en el resultado guardado de la tirada anterior.
@@ -41,5 +42,5 @@ def aplicar_regla_del_diez(tirada_id: str):
 
     return {
         "valores_sumados_por_regla10": nuevos_valores,
-        "resultado_actualizado": JSONResponse(content=tirada.resultadoTirada)
+        "resultado_actualizado": tirada.resultadoTirada
     }

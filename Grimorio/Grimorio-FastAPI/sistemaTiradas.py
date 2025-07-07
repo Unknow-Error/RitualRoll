@@ -1,5 +1,5 @@
-import dados
 import json
+from dados import Dado
 
 class TiradaMultiple:
     """
@@ -75,7 +75,7 @@ class TiradaMultiple:
         """
 
         valoresTiradaJson = {}
-        valoresTiradaJson["dados"] = self.dados
+        valoresTiradaJson["dados"] = [dado.caras for dado in self.dados] # Porque los objetos Dados no son JSON serializables.
         valoresTiradaJson["dificultad"] = self.dificultad
         valoresTiradaJson["bonus"] = self.bonus
         valoresTiradaJson["modo"] = self.modo
