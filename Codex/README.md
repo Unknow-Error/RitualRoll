@@ -56,13 +56,12 @@ Se está trabajando en:
 ```bash
 RitualRoll/
 ├── 📜 Grimorio/               # 📖 Backend: lógica oculta, invocaciones API, controladores
-│   ├── Circles/              # Módulos del backend (e.g., Dados, Chat, PDF, Mapas)
+│   ├── Grimorio-FastAPI/              # Módulos del backend (e.g., Dados, Chat, PDF, Mapas)
 │   │   ├── dice/             # Lógica de dados y mecánicas
 │   │   ├── chat/             # WebSockets para comunicación
 │   │   ├── pdfs/             # Lectura y escritura de PDFs interactivos
 │   │   └── tokens/           # Tokens, imágenes y avatares
-│   ├── Encantamientos/         # Controladores REST o WebSocket (como routes o gateways)
-│   ├── Sigilos/               # Modelos (schemas, DTOs)
+│   ├── Sigilos-NEST/         # Controladores REST o WebSocket (como routes o gateways)
 │   ├── Artifacts/            # Servicios, utilidades compartidas (helpers)
 │   ├── Sanctum/              # Configuración global del servidor (NestJS/FastAPI)
 │   └── main.ts               # Punto de entrada del servidor
@@ -102,7 +101,25 @@ RitualRoll/
 ## 🔮 Objetivos futuros
 
 - Soporte completo para *Vampire*, *Mage*, *Werewolf* y demás líneas de WoD.
+- FastAPI para las partes que requieren:
 
+     Procesamiento de PDFs (con pdfrw, reportlab, etc.)
+
+     Exportación de hojas como XML o JSON
+
+    Lógica avanzada de IA o cálculos mágicos raros (por ejemplo, decisiones automáticas de escenas)
+
+     Análisis de audio (si hacés algo con música o sincronización)
+
+Y usás NestJS para:
+
+     API principal REST para usuarios, partidas, fichas
+
+     WebSockets (chat, dados, mapa en tiempo real)
+
+     Autenticación (JWT, OAuth)
+
+     Push notifications y comunicación en vivo con los jugadores
 
 ## 📜 Licencia
 
