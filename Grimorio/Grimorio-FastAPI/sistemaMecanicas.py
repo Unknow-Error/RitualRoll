@@ -75,7 +75,7 @@ class TiradaMultiple:
         """
 
         valoresTiradaJson = {}
-        valoresTiradaJson["dados"] = [dado.caras for dado in self.dados] # Porque los objetos Dados no son JSON serializables.
+        valoresTiradaJson["dados"] = [{"caras": dado.caras, "valores": dado.valores} for dado in self.dados] # Porque los objetos Dados no son JSON serializables.
         valoresTiradaJson["dificultad"] = self.dificultad
         valoresTiradaJson["bonus"] = self.bonus
         valoresTiradaJson["modo"] = self.modo
