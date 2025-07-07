@@ -5,7 +5,7 @@ app = FastAPI()
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import Optional, List
-from sistemaMecanicas import Tirada_CWoD_20, TiradaMultiple
+from mecanicaDados import Tirada_CWoD_20, TiradaMultiple
 from dados import Dado
 import uuid
 
