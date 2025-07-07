@@ -67,63 +67,106 @@ class TiradaMultiple:
 
         return resultados_booleanos
     
+    def __str__(self):
+        stringSalida = ""
+        if self.bonus == 0:
+            stringSalida += f"El resultado de la tirada {len(self.dados)}D{self.dados[0].caras} fue de un total de {self.valorNeto}"
+        else:
+            stringSalida += f"El resultado de la tirada {len(self.dados)}D{self.dados[0].caras}+{self.bonus} fue de un total de {self.valorNeto}"
+        
+        return stringSalida
+
+    def __repr__(self):
+        return f"TiradaMultiple({self.dados}, {self.dificultad}, {self.bonus}, {self.modo})"
+    
 class TiradaCWoD_20(TiradaMultiple):
     """
-       Clase para tiradas del sistema Classic World of Darkness 20th: tiene pifias, éxitos múltiples, especialización.
-       Reglas:
-      -Tiradas de 1D10 : Cantidad de dados segun nodos de Atributo + Habilidad 
-      -Dificultad : Establece el valor a superar por el dado
-      -Regla del 10 : Si un dado sale con un 10, se lo cuenta como éxito y se vuelve a tirar, y si vuelve a salir 10 se repite acumulando más éxitos superados
-      -Éxito: Cualquier dado que saque un número igual o superior a la dificultad.
-      -Éxito crítico: Si salen varios 10s (2 o más) en los dados, puede haber éxito excepcional : Un éxito con efectos adicionales 
-      -Falla: Cualquier dado que saque un número inferior a la dificultad.
-      -Pifia (Falla crítica): Dado con 1. Si no hay éxitos (o muy pocos) y salen 1 o más 1s en los dados, se considera fracaso castastrófico.
+        Clase para tiradas del sistema Classic World of Darkness 20th: tiene pifias, éxitos múltiples, especialización.
+        Reglas:
+        -Tiradas de 1D10 : Cantidad de dados segun nodos de Atributo + Habilidad
+        -Dificultad : Establece el valor a superar por el dado
+        -Regla del 10 : Si un dado sale con un 10, se lo cuenta como éxito y se vuelve a tirar, y si vuelve a salir 10 se repite acumulando más éxitos superados
+        -Éxito: Cualquier dado que saque un número igual o superior a la dificultad.
+        -Éxito crítico: Si salen varios 10s (2 o más) en los dados, puede haber éxito excepcional : Un éxito con efectos adicionales
+        -Falla: Cualquier dado que saque un número inferior a la dificultad.
+        -Pifia (Falla crítica): Dado con 1. Si no hay éxitos (o muy pocos) y salen 1 o más 1s en los dados, se considera fracaso castastrófico.
     """
-    def __init__(self, dados = None, dificultad = 6, bonus = 0, reglaDelDiez = True):
-        super().__init__(dados, dificultad, bonus, True)
-        self.resultadoTirada = dict() # Se almacena el numero de exitos, exitos criticos, "regla del 10" y pifias
+    def __init__(self, dados = None, dificultad = 6, reglaDelDiez = True):
         self.reglaDelDiez = reglaDelDiez # Si se aplica o no la regla del 10
+        super().__init__(dados, dificultad, 0, True)
+        self.resultadoTirada = dict() # Se almacena el numero de exitos, exitos criticos, "regla del 10" y pifias
+
 
         if self.resultadoTirada == {}:
             self.tirar_dados()
             self.evaluar_exitos()
 
-    def tirar_dados(self):
-      """
-        Override del método de la clase padre siguiendo las reglas del sistema.
-      """
-      valoresTirada = []
+    def tirada_regla_del_diez(self):
+        """
+            Tira los dados y devuelve una lista con los valores de cada dado.
+        """
+      
+        valores_regla_del_diez = []
 
-      for dado in self.dados:
-        valoresTirada.append(dado.tirar())
-        if self.reglaDelDiez and valoresTirada[-1] == 10:
-          while valoresTirada[-1] == 10:
-            valoresTirada.append(dado.tirar())
+        for valor in self.valoresTirada:
+            if valor == 10:
+                valores_regla_del_diez.append(self.dados[0].tirar())
 
-      self.valoresTirada = valoresTirada
+        self.valoresTirada += valores_regla_del_diez
+        
+        return valores_regla_del_diez
 
-      return valoresTirada
+    def evaluar_exitos(self, modo=True):
+        """
+            Override del método de la clase padre siguiendo las reglas del sistema.
+        """
+        resultados_tiradas = dict()
+        pifias = 0
+        exitos = 0
+        fallas = 0
+        exitosCriticos = 0
+        exitos_diez = 0
 
-    def evaluar_exitos(self):
-      """
-        Override del método de la clase padre siguiendo las reglas del sistema.
-      """
-      resultados_tiradas = dict() 
-      pifias = 0
-      exitos = 0
-      exitosCriticos = 0
+        for valor in self.valoresTirada:
+            if valor >= self.dificultad:
+                exitos += 1
+            else:
+                fallas += 1
+            if valor == 10:
+                exitos_diez += 1
+            if exitos_diez >= 2 and valor == 10:
+                exitosCriticos += 1
+            if valor == 1:
+                pifias += 1
 
-      for valor in self.valoresTirada:
-        if valor == 1:
-          pifias += 1
-          resultados_tiradas["pifias"] = pifias
-        elif valor >= self.dificultad:
-          exitos += 1
-          resultados_tiradas["exitos"] = exitos
-        elif valor == 10:
-          exitosCriticos += 1
-          resultados_tiradas["exitosCriticos"] = exitosCriticos
+        falloCritico = (fallas > exitos and pifias > 0)
 
-      self.resultadoTirada = resultados_tiradas
+        resultados_tiradas["valores"] = self.valoresTirada
+        resultados_tiradas["exitos"] = exitos
+        resultados_tiradas["fallas"] = fallas
+        resultados_tiradas["exitosCriticos"] = exitosCriticos
+        resultados_tiradas["pifias"] = pifias
+        resultados_tiradas["falloCritico"] = falloCritico
 
-      return resultados_tiradas  
+        self.resultadoTirada = resultados_tiradas
+
+        return resultados_tiradas
+
+    def __str__(self):
+        stringSalida = f"El resultado de la tirada {len(self.dados)}D{self.dados[0].caras}"
+        for llave, valor in self.resultadoTirada.items():
+            if llave == "valores":
+                stringSalida += f" dio {valor}"
+            if llave == "exitos":
+                stringSalida += f" con {valor} exitos"
+            if llave == "fallas":
+                stringSalida += f" y {valor} fallas"
+            if llave == "exitosCriticos" and valor > 0:
+                stringSalida += f" con {valor} exitos criticos"
+            if llave == "falloCritico" and valor == True:
+                stringSalida += f" siendo un Fallo Catastrófico"
+
+        return stringSalida
+
+    def __repr__(self):
+        return f"TiradaCWoD_20({self.dados}, {self.dificultad}, {self.bonus}, {self.reglaDelDiez})"
