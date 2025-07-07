@@ -7,8 +7,10 @@ class Dado:
     def __init__(self, caras = None, valores = None):
         self.caras = caras #Numero de caras
         self.valores = valores #Lista de Valores
+        self.dadoJson = {}
         if self.caras is not None:
             self.definir_valores()
+            self.dado_a_json()
 
     def definir_valores(self):
         """
@@ -25,5 +27,18 @@ class Dado:
         """
         return random.choice(self.valores)
 
+    def dado_a_json(self):
+        """
+            Transforma el dado a un formato JSON.
+        """
+        dadoJson = {}
+        dadoJson["caras"] = self.caras
+        dadoJson["valores"] = self.valores
+
+        dadoJson = json.dumps(dadoJson)
+        self.dadoJson = dadoJson
+
+        return dadoJson
+    
     def __str__(self):
         return f"Dado con {self.caras} caras y valores {self.valores}"

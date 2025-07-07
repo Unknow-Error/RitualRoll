@@ -1,4 +1,5 @@
 import dados
+import json
 
 class TiradaMultiple:
     """
@@ -13,12 +14,13 @@ class TiradaMultiple:
         self.valoresTirada = [] #Valores de los resultados de la tirada de cada dado
         self.valorNeto = 0 #Valor neto de la tirada
         self.valoresBooleanos = [] #Valores de exitos o fallas de cada dado (respecto a la dificultad a superar o al reves)
+        self.valoresJson = "" #Valores de los resultados de la tirada de cada dado en formato JSON
 
         if self.valoresTirada == []:
             self.tirar_dados()
             self.valor_neto()
             self.evaluar_exitos(self.modo)
-
+            self.tiradaMultiple_json()
 
     def tirar_dados(self):
         """
@@ -67,6 +69,24 @@ class TiradaMultiple:
 
         return resultados_booleanos
     
+    def tiradaMultiple_json(self):
+        """
+            Transforma el resultado de la tirada a un formato JSON.
+        """
+
+        valoresTiradaJson = {}
+        valoresTiradaJson["dados"] = self.dados
+        valoresTiradaJson["dificultad"] = self.dificultad
+        valoresTiradaJson["bonus"] = self.bonus
+        valoresTiradaJson["modo"] = self.modo
+        valoresTiradaJson["valores"] = self.valoresTirada
+        valoresTiradaJson["valorNeto"] = self.valorNeto
+        valoresTiradaJson["valoresBooleanos"] = self.valoresBooleanos
+        valoresTiradaJson = json.dumps(valoresTiradaJson)
+        self.valoresJson = valoresTiradaJson
+      
+        return valoresTiradaJson
+    
     def __str__(self):
         stringSalida = ""
         if self.bonus == 0:
@@ -95,11 +115,12 @@ class TiradaCWoD_20(TiradaMultiple):
         self.reglaDelDiez = reglaDelDiez # Si se aplica o no la regla del 10
         super().__init__(dados, dificultad, 0, True)
         self.resultadoTirada = dict() # Se almacena el numero de exitos, exitos criticos, "regla del 10" y pifias
-
+        self.resultadoTiradaJson = "" # Se almacena el resultado de la tirada en formato JSON
 
         if self.resultadoTirada == {}:
             self.tirar_dados()
             self.evaluar_exitos()
+            self.tiradaMultiple_json()
 
     def tirada_regla_del_diez(self):
         """
@@ -151,6 +172,16 @@ class TiradaCWoD_20(TiradaMultiple):
         self.resultadoTirada = resultados_tiradas
 
         return resultados_tiradas
+    
+    def transformar_a_Json(self):
+        """
+            Transforma el resultado de la tirada a un formato JSON.
+        """
+
+        resultadoTiradaJson = json.dumps(self.resultadoTirada)
+        self.resultadoTiradaJson = resultadoTiradaJson
+      
+        return resultadoTiradaJson
 
     def __str__(self):
         stringSalida = f"El resultado de la tirada {len(self.dados)}D{self.dados[0].caras}"
