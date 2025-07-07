@@ -27,4 +27,3 @@ class Dado:
 
     def __str__(self):
         return f"Dado con {self.caras} caras y valores {self.valores}"
-    
