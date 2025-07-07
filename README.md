@@ -21,6 +21,34 @@ Se está trabajando en:
 - Visualización y carga de PDFs interactivos.
 - Integración inicial de chat y mapa con tokens.
 
+
+## 🛠️ Tecnologías utilizadas
+
+- **Frontend**:  
+  - [React](https://reactjs.org/) – Librería de UI moderna (MIT License)  
+  - [TailwindCSS](https://tailwindcss.com/) – Framework de estilos utilitario (MIT)  
+  - [Konva.js](https://konvajs.org/) – Canvas interactivo para mapas y tokens (MIT)  
+  - [Socket.io-client](https://socket.io/) – Comunicación en tiempo real (MIT)
+
+- **Backend**:  
+  - [FastAPI](https://fastapi.tiangolo.com/) – Framework backend moderno en Python (MIT)  
+
+- **Manejo de PDFs interactivos**:  
+  - [pdf-lib](https://pdf-lib.js.org/) – Lectura/modificación de formularios PDF (MIT, Node.js)  
+  - [pdfrw](https://github.com/pmaupin/pdfrw) – Lectura/escritura de campos PDF (MIT, Python)
+
+- **Comunicación en tiempo real**:  
+  - [Socket.io](https://socket.io/) – WebSockets simples y robustos (MIT)
+
+- **Almacenamiento de archivos (audio, imágenes, PDFs)**:  
+  - [Supabase Storage](https://supabase.com/) – Open source alternativa a Firebase (PostgreSQL + S3 compatible)  
+  - **O bien**: almacenamiento local en disco (`/uploads/`, útil para testing/desarrollo)
+
+- **Base de datos**:  
+  - [PostgreSQL](https://www.postgresql.org/) – Base de datos relacional potente y libre (PostgreSQL License)  
+
+---
+
 ---
 
 ## Estructura del proyecto:
