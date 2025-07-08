@@ -6,8 +6,7 @@ from ritualError import (
     validation_exception_handler,
     global_exception_handler
 )
-from mecanicaDados import Tirada_CWoD_20, TiradaMultiple
-from dados import Dado
+from Dados import dados, mecanicaDados
 
 import uuid
 
