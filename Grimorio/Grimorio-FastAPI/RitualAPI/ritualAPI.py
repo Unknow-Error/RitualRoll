@@ -6,9 +6,13 @@ from ritualError import (
     validation_exception_handler,
     global_exception_handler
 )
-from Dados import dados, mecanicaDados
-
 import uuid
+import sys
+sys.path.append('/home/Nephelim/Documentos/Programacion/VSCodium-Projects/RitualRoll/Grimorio/Grimorio-FastAPI/Dados')
+from dados import Dado
+from mecanicaDados import Tirada_CWoD_20, TiradaMultiple
+
+
 
 app = FastAPI()
 

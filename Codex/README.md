@@ -49,6 +49,12 @@ Se está trabajando en:
 
 ---
 
+Pruebas:
+source venv/bin/activate
+cd /home/Nephelim/Documentos/Programacion/VSCodium-Projects/RitualRoll/Grimorio/Grimorio-FastAPI/RitualAPI
+uvicorn ritualAPI:app --reload
+http://127.0.0.1:8000/docs#
+
 ---
 
 ## Estructura del proyecto:
