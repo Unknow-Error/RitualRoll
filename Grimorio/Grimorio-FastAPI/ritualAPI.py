@@ -121,3 +121,12 @@ def aplicar_regla_del_diez(tirada_id: str):
         "valores_sumados_por_regla10": nuevos_valores,
         "resultado_actualizado": tirada.resultadoTirada
     }
+
+
+# Funcionalidades de las hojas de personaje WoD:
+# GET : /hojasPersonaje/WoD/{juego}/{id} => Devuelve JSON del personaje
+# POST: /hojasPersonaje/WoD/{juego}/crear_nueva_hoja => Crear nueva ficha
+# PUT: /hojasPersonaje/WoD/{juego}/{id} => Actualizar hoja
+# POST: /hojasPersonaje/WoD/{juego}/{id}/exportar/pdf => Genera plantilla en forma de pdf
+# POST: /hojasPersonaje/WoD/{juego}/{id}/cargar/pdf => Carga pdf interactivo como JSON
+# PUT: /hojasPersonaje/WoD/{juego}/{id}/cargar/pdf => Actualiza una plantilla segun el pdf.

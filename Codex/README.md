@@ -66,7 +66,7 @@ RitualRoll/
 │   ├── Sanctum/              # Configuración global del servidor (NestJS/FastAPI)
 │   └── main.ts               # Punto de entrada del servidor
 
-├── 🧱 ObsidianVault/          # 🗄️ Base de datos y migraciones (la “cripta” de datos)
+├── 🧱 Cripta/          # 🗄️ Base de datos y migraciones (la “cripta” de datos)
 │   ├── runes.sql             # Scripts SQL iniciales
 │   ├── schema.prisma         # (opcional) Prisma u ORM equivalente
 │   └── migrations/           # Migraciones de cambios
@@ -80,7 +80,7 @@ RitualRoll/
 │   ├── public/               # Archivos estáticos (favicon, sonidos, imágenes)
 │   └── index.tsx             # Punto de entrada
 
-├── 🧿 Relics/                 # 📁 Archivos subidos (tokens, música, imágenes, PDFs)
+├── 🧿 Reliquias/                 # 📁 Archivos subidos (tokens, música, imágenes, PDFs)
 │   ├── uploads/              # Lo que los jugadores suben
 │   └── generated/            # PDFs y recursos generados
 
