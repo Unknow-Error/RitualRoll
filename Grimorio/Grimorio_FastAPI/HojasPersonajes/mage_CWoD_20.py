@@ -1,4 +1,5 @@
 # Diccionarios para mapear los PDFs de Mage : The ascension - 20th Aniversario. 
+
 CAMPO_MAP_MAGO = {
     # ATRIBUTOS
     "attributes1": "strength",
@@ -77,28 +78,34 @@ CAMPO_MAP_MAGO = {
     "concept": "concept",
 
     # BACKGROUNDS
-    "backgrounds1": "background_1",
-    "backgrounds2": "background_2",
-    "backgrounds3": "background_3",
-    "backgrounds4": "background_4",
-    "backgrounds5": "background_5",
-    "backgrounds6": "background_6",
+    "backgrounds1": "backgrounds1",
+    "backgrounds2": "backgrounds2",
+    "backgrounds3": "backgrounds3",
+    "backgrounds4": "backgrounds4",
+    "backgrounds5": "backgrounds5",
+    "backgrounds6": "backgrounds6",
 
     # VOLUNTAD, ARETE, PARADOJA, QUINTESSENCIA, EXPERIENCIA (pueden necesitar mapeo de dots/checkboxes también)
     "experience": "experience",
     "willpower": "willpower",
     "willpower_check": "willpower_check",    
 
-     # OT: Otros rasgos personalizados
-    "OT1": "other_trait_1",
-    "OT2": "other_trait_2",
-    "OT3": "other_trait_3",
-    "OT4": "other_trait_4",
-    "OT5": "other_trait_5",
-    "OT6": "other_trait_6",
-    "OT7": "other_trait_7",
-    "OT8": "other_trait_8",
-    "OT9": "other_trait_9",
+    # OT: Otros rasgos personalizados
+    "OT1": "othertraits1",
+    "OT2": "othertraits2",
+    "OT3": "othertraits3",
+    "OT4": "othertraits4",
+    "OT5": "othertraits5",
+    "OT6": "othertraits6",
+    "OT7": "OT1",
+    "OT8": "OT2",
+    "OT9": "OT3",
+    "OT10": "OT4",
+    "OT11": "OT5",
+    "OT12": "OT6",
+    "OT13": "OT7",
+    "OT14": "OT8",
+    "OT15": "OT9",
 
     # Magic: Rotes personalizados
     **{f"magic{i}": f"rote_{i}" for i in list(range(1, 17)) + [18, 19, 20, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34]},
@@ -187,6 +194,32 @@ DOT_GROUPS_MAGO = {
     "science_dots":        ['xdotm11', 'xdotm12', 'xdotm13', 'xdotm14', 'xdotm15'],
     "extra_knowledge_dots":   ['xdotm11e', 'xdotm12e', 'xdotm13e', 'xdotm14e', 'xdotm15e'],
 
+    # BACKGROUNDS
+
+    "backgrounds1_dots" : ['xdotm16', 'xdotm17', 'xdotm18', 'xdotm19', 'xdotm20'],
+    "backgrounds2_dots" : ['dot137', 'dot138', 'dot139', 'dot140', 'dot141'],
+    "backgrounds3_dots" : ['dot145', 'dot146', 'dot147', 'dot148', 'dot149'],
+    "backgrounds4_dots" : ['dot217', 'dot218', 'dot219', 'dot220', 'dot221'],
+    "backgrounds5_dots" : ['dot225', 'dot226', 'dot227', 'dot228', 'dot229'],
+    "backgrounds6_dots" : ['dot297', 'dot298', 'dot299', 'dot300', 'dot301'],
+
+    # OTHER_TRAITS
+
+    "other_trait_1_dots": ['dot305', 'dot306', 'dot307', 'dot308', 'dot309'],
+    "other_trait_2_dots": ['dot393', 'dot394', 'dot395', 'dot396', 'dot397'],
+    "other_trait_3_dots": ['dot401', 'dot402', 'dot403', 'dot404', 'dot405'],
+    "other_trait_4_dots": ['dot313', 'dot314', 'dot315', 'dot316', 'dot317'],
+    "other_trait_5_dots": ['dot321', 'dot322', 'dot323', 'dot324', 'dot325'],
+    "other_trait_6_dots": ['OTdot1', 'OTdot2', 'OTdot3', 'OTdot4', 'OTdot5'],
+    "other_trait_7_dots": ['dot497', 'dot498', 'dot499', 'dot500', 'dot501'],
+    "other_trait_8_dots": ['dot505', 'dot506', 'dot507', 'dot508', 'dot509'],
+    "other_trait_9_dots": ['dot513', 'dot514', 'dot515', 'dot516', 'dot517'],
+    "other_trait_10_dots": ['dot521', 'dot522', 'dot523', 'dot524', 'dot525'],
+    "other_trait_11_dots": ['dot529', 'dot530', 'dot531', 'dot532', 'dot533'],
+    "other_trait_12_dots": ['dot537', 'dot538', 'dot539', 'dot540', 'dot541'],
+    "other_trait_13_dots": ['dot545', 'dot546', 'dot547', 'dot548', 'dot549'],
+    "other_trait_14_dots": ['dot553', 'dot554', 'dot555', 'dot556', 'dot557'],
+    "other_trait_15_dots": ['dot561', 'dot562', 'dot563', 'dot564', 'dot566'],
 
     # VOLUNTAD
     "willpower_dots": ['willdot1', 'willdot2', 'willdot3', 'willdot4', 'willdot5',
