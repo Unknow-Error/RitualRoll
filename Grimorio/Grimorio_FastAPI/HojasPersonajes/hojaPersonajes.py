@@ -1,4 +1,5 @@
-from pdfrw import PdfReader
+from pdfrw import PdfReader, PdfWriter, PdfDict, PdfName, PdfObject
+from mage_CWoD_20 import contar_quintaesencia_y_paradoja, expandir_quintaesenciae_y_paradoja, DOT_YE_VALUES
 
 def extraer_todos_los_campos_pdf(ruta_pdf):
     """
@@ -57,21 +58,7 @@ def compactar_dots_CWoD(datos, diccionario_DOTS):
         resultado[nombre_logico] = cantidad
     return resultado
 
-def expandir_dots_CWoD(datos_compactados, diccionario_DOTS):
-    """
-        Devuelve un diccionario con el formato de entrada del PDF a partir de los nombres lógicos de dots.
-    """
-    resultado = {}
-    for nombre_logico, lista_dots in diccionario_DOTS.items():
-        cantidad = datos_compactados.get(nombre_logico, 0)
-        for i, dot in enumerate(lista_dots):
-            resultado[dot] = {
-                "tipo": "texto",
-                "valor_actual": "Ye" if i < cantidad else ""
-            }
-    return resultado
-
-def mapear_campos_PDF_CWoD_a_JSON(datos, diccionario_MAPEO):
+def mapear_campos_PDF_CWoD_a_JSON(datos, diccionario_MAPEO, diccionario_DOTS):
     """
         Convierte campos individuales y compacta los dots. Retorna JSON legible.
     """
@@ -88,7 +75,7 @@ def mapear_campos_PDF_CWoD_a_JSON(datos, diccionario_MAPEO):
                 salida[nombre_logico] = valor.strip()
     
     # Compactar los dots
-    salida.update(compactar_dots_CWoD(datos))
+    salida.update(compactar_dots_CWoD(datos, diccionario_DOTS))
 
     return salida
 
@@ -116,3 +103,52 @@ def mapear_campos_completo_PDF_CWoD_a_JSON(datos, mapeo):
     salida.update(compactar_dots_CWoD(datos))
 
     return salida
+
+def expandir_dots_CWoD(datos_compactados, diccionario_DOTS):
+    """
+        Devuelve un diccionario con el formato de entrada del PDF a partir de los nombres lógicos de dots.
+    """
+    resultado = {}
+    for nombre_logico, lista_dots in diccionario_DOTS.items():
+        cantidad = datos_compactados.get(nombre_logico, 0)
+        for i, dot in enumerate(lista_dots):
+            resultado[dot] = {
+                "tipo": "texto",
+                "valor_actual": "Ye" if i < cantidad else ""
+            }
+    return resultado
+
+def reconstruir_campos_CWoD_pdf(json_jugador, mapeo, diccionario_DOTS):
+    campos_pdf = {}
+
+    # Expandir los dots primero (atributos, skills, spheres, etc.)
+    campos_pdf.update(expandir_dots_CWoD(json_jugador, diccionario_DOTS))
+
+    # Expandir los qpcheck (quintessence y paradox)
+    qdots = json_jugador.get("quintessence_dots", 0)
+    pdots = json_jugador.get("paradox_dots", 0)
+    campos_pdf.update(expandir_quintaesenciae_y_paradoja(qdots, pdots))
+
+    # Campos mapeados normales
+    for pdf_key, json_key in mapeo.items():
+        if json_key in json_jugador:
+            valor = json_jugador[json_key]
+            campos_pdf[pdf_key] = {
+                "tipo": "texto",  # en general
+                "valor_actual": valor
+            }
+
+    return campos_pdf
+
+def completar_hoja_personaje_pdf(ruta_pdf_input, ruta_pdf_output, campos):
+    pdf = PdfReader(ruta_pdf_input)
+    for campo in pdf.Root.AcroForm.Fields:
+        nombre = campo.T[1:-1] if campo.T else None
+        if not nombre or nombre not in campos:
+            continue
+
+        valor = campos[nombre]["valor_actual"]
+        campo.V = PdfObject(f'({valor})')
+        campo.AP = None  # Borrar apariencia previa si hay
+
+    PdfWriter().write(ruta_pdf_output, pdf)

@@ -310,6 +310,9 @@ DOT_GRUPOS_MAGO_OFICIAL = {
 }
 
 def contar_quintaesencia_y_paradoja(campos):
+    """
+        Función que cuenta los qpcheck points o dots de quintaescencia o paradoja según su uso en la planilla PDF.
+    """
     quintaesencia = 0
     paradoja = 0
 
@@ -318,7 +321,7 @@ def contar_quintaesencia_y_paradoja(campos):
 
     # Quintessence: cuenta del inicio
     for valor in valores:
-        if v:
+        if valor:
             quintaesencia += 1
         else:
             break  # solo cuenta los "Yes" consecutivos desde el principio
@@ -336,6 +339,9 @@ def contar_quintaesencia_y_paradoja(campos):
     }
     
 def expandir_quintaesenciae_y_paradoja(qdots=0, pdots=0):
+    """
+        Función que arma el parseo de puntaje de quintaesencia y puntaje paradoja de un JSON a un PDF.
+    """
     resultado = {}
     for i in range(1, 21):
         if i <= qdots:
