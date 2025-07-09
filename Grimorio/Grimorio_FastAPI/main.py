@@ -1,20 +1,28 @@
 import sys
 import os
 
-# Obtén el directorio raíz del proyecto (uno nivel arriba del directorio actual)
-root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
-# Agrega el directorio raíz al sys.path para poder importar módulos y paquetes desde ahí
+# Configura sys.path para importar correctamente
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(root_dir)
 
-from fastapi import FastAPI
-from RitualAPI.ritualAPI import app as ritual_api_app
+# Importa router y los handlers
+from RitualAPI.ritualAPI import router as ritual_api_app
+from RitualAPI.ritualError import (
+    custom_http_exception_handler,
+    validation_exception_handler,
+    global_exception_handler
+)
 
-# Crea una nueva instancia de FastAPI si necesitas agregar más rutas globales o middleware
 app = FastAPI()
 
-# Aquí puedes agregar middleware global, configuraciones adicionales, etc.
-# app.add_middleware(...)
+# Registra los exception handlers
+app.add_exception_handler(StarletteHTTPException, custom_http_exception_handler)
+app.add_exception_handler(RequestValidationError, validation_exception_handler)
+app.add_exception_handler(Exception, global_exception_handler)
 
-# Incluye las rutas definidas en ritualAPI.py
+# Incluye las rutas
 app.include_router(ritual_api_app)

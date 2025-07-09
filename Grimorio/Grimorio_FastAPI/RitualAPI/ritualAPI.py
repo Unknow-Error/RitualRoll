@@ -1,24 +1,12 @@
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.exceptions import RequestValidationError
-from starlette.exceptions import HTTPException as StarletteHTTPException
+from fastapi import FastAPI, HTTPException, Request, APIRouter
 from pydantic import BaseModel
 from typing import Optional, List
-from RitualAPI.ritualError import (
-    custom_http_exception_handler,
-    validation_exception_handler,
-    global_exception_handler
-)
 import uuid
 from Dados.dados import Dado
 from Dados.mecanicaDados import Tirada_CWoD_20, TiradaMultiple
 
-app = FastAPI()
-
-# Handlers de error personalizados:
-
-app.add_exception_handler(StarletteHTTPException, custom_http_exception_handler)
-app.add_exception_handler(RequestValidationError, validation_exception_handler)
-app.add_exception_handler(Exception, global_exception_handler)
+# Crear un router en lugar de usar la aplicación directamente
+router = APIRouter()
 
 # Almacenamiento temporal en memoria
 tiradas_guardadas = {}
@@ -40,7 +28,7 @@ class TiradaMultipleEntrada(BaseModel):
 
 # Para las Tiradas generales de cualquier mecanica:
 
-@app.post("/RitualRoll/dadoNumerico/")
+@router.post("/RitualRoll/dadoNumerico/")
 def crear_tirada_dado_num(input: DadoNumericoEntrada):
     if input.caras <= 0:
         raise HTTPException(status_code=422, detail="El dado debe tener al menos 1 cara.")
@@ -57,7 +45,7 @@ def crear_tirada_dado_num(input: DadoNumericoEntrada):
         "resultado": tirada
     }
 
-@app.post("/RitualRoll/tiradaMultiple/")
+@router.post("/RitualRoll/tiradaMultiple/")
 def crear_tirada_multiple(input: TiradaMultipleEntrada):    
     for cara in input.caras:
         if cara <= 0:
@@ -85,7 +73,7 @@ def crear_tirada_multiple(input: TiradaMultipleEntrada):
 
 # Para las Tiradas del Sistema CWod 20 :
 
-@app.post("/RitualRoll/CWoD20/tirada/")
+@router.post("/RitualRoll/CWoD20/tirada/")
 def crear_tirada_CWoD_20(input: TiradaEntrada_CWod_20):
     if input.dados <= 0:
         raise HTTPException(status_code=422, detail="Debe haber al menos un dado en la tirada.")
@@ -102,7 +90,7 @@ def crear_tirada_CWoD_20(input: TiradaEntrada_CWod_20):
     }
 
 # Otra petición POST si aplica la regla de 10 en el resultado guardado de la tirada anterior.
-@app.post("/RitualRoll/CWoD20/tirada/regla10/{tirada_id}")
+@router.post("/RitualRoll/CWoD20/tirada/regla10/{tirada_id}")
 def aplicar_regla_del_diez(tirada_id: str):
     tirada = tiradas_guardadas.get(tirada_id)
 

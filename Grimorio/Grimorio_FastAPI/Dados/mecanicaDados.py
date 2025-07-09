@@ -1,5 +1,5 @@
 import json
-from dados import Dado
+from Dados.dados import Dado
 
 class TiradaMultiple:
     """
