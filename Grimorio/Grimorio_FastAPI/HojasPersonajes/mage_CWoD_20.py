@@ -198,9 +198,11 @@ CAMPO_MAP_MAGO_OFICIAL = {
     **{f"Flaw{i}": f"flaw{i}" for i in range(1, 8)},
     **{f"type{i}": f"type{i}" for i in range(1, 15)},
     **{f"cost{i}": f"cost{i}" for i in range(1, 15)},
+    
+    # Expanded Backgrounds
+    **{f"EBtitle{i}": f"EBtitle{i}" for i in range(1, 11)},
+    **{f"EB{i}": f"EB{i}" for i in range(1, 32)}
 }
-
-DOT_YE_VALUES = {"Ye", "Yes", "On"}  # valores activados para dots
 
 DOT_GRUPOS_MAGO_OFICIAL = {
     # ATRIBUTOS
@@ -317,7 +319,7 @@ def contar_quintaesencia_y_paradoja(campos):
     paradoja = 0
 
     checks = [f"qpcheck{i}" for i in range(1, 21)]
-    valores = [campos.get(check, {}).get("valor_actual", "") in DOT_YE_VALUES for check in checks]
+    valores = [campos.get(check, {}).get("valor_actual", "") in {"Ye", "Yes", "On"} for check in checks]
 
     # Quintessence: cuenta del inicio
     for valor in valores:
