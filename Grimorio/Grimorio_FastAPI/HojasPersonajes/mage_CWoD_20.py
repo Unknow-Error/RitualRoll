@@ -1,6 +1,6 @@
 # Diccionarios para mapear los PDFs de Mage : The ascension - 20th Aniversario. 
 
-CAMPO_MAP_MAGO = {
+CAMPO_MAP_MAGO_OFICIAL = {
     # ATRIBUTOS
     "attributes1": "strength",
     "attributes2": "dexterity",
@@ -54,7 +54,6 @@ CAMPO_MAP_MAGO = {
     "skills33": "science",
     "skillsex3": "extra_knowledge",
 
-
     # ESFERAS
     "spheres1": "correspondence",
     "spheres2": "entropy",
@@ -66,17 +65,6 @@ CAMPO_MAP_MAGO = {
     "spheres8": "spirit",
     "spheres9": "time",
 
-    # OTROS CAMPOS ÚTILES
-    "name": "name",
-    "player": "player",
-    "chronicle": "chronicle",
-    "nature": "nature",
-    "demeanor": "demeanor",
-    "essence": "essence",
-    "affiliation": "affiliation",
-    "sect": "sect",
-    "concept": "concept",
-
     # BACKGROUNDS
     "backgrounds1": "backgrounds1",
     "backgrounds2": "backgrounds2",
@@ -85,59 +73,136 @@ CAMPO_MAP_MAGO = {
     "backgrounds5": "backgrounds5",
     "backgrounds6": "backgrounds6",
 
-    # VOLUNTAD, ARETE, PARADOJA, QUINTESSENCIA, EXPERIENCIA (pueden necesitar mapeo de dots/checkboxes también)
+    # CARACTERISTICAS DEL PERSONAJE
+
+    "name": "name",
+    "player": "player",
+    "chronicle": "chronicle",
+    "nature": "nature",
+    "demeanor": "demeanor",
     "experience": "experience",
-    "willpower": "willpower",
-    "willpower_check": "willpower_check",    
+    "essence": "essence",
+    "affiliation": "affiliation",
+    "sect": "sect",
+    "concept": "concept",
 
     # OT: Otros rasgos personalizados
-    "OT1": "othertraits1",
-    "OT2": "othertraits2",
-    "OT3": "othertraits3",
-    "OT4": "othertraits4",
-    "OT5": "othertraits5",
-    "OT6": "othertraits6",
-    "OT7": "OT1",
-    "OT8": "OT2",
-    "OT9": "OT3",
-    "OT10": "OT4",
-    "OT11": "OT5",
-    "OT12": "OT6",
-    "OT13": "OT7",
-    "OT14": "OT8",
-    "OT15": "OT9",
+    "othertraits1" : "othertraits1",
+    "othertraits2" : "othertraits2",
+    "othertraits3" : "othertraits3",
+    "othertraits4" : "othertraits4",
+    "othertraits5" : "othertraits5",
+    "othertraits6" : "othertraits6",
+    "OT1" : "othertraits7",
+    "OT2" : "othertraits8",
+    "OT3" : "othertraits9",
+    "OT4" : "othertraits10",
+    "OT5" : "othertraits11",
+    "OT6" : "othertraits12",
+    "OT7" : "othertraits13",
+    "OT8" : "othertraits14",
+    "OT9" : "othertraits15",
 
-    # Magic: Rotes personalizados
-    **{f"magic{i}": f"rote_{i}" for i in list(range(1, 17)) + [18, 19, 20, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34]},
+    # Health:
+    "health1": "health1",
+    "health2": "health2",
+    "health3": "health3",
+    "health4": "health4",
+    "health5": "health5",
+    "health6": "health6",
+    "health7": "health7",
+
+    # Magic:
+
+    # Wonders personalizados
+    **{f"magic{i}": f"wonder{i}" for i in list(range(1, 7))},
+
+    # Rotes personalizados
+    **{f"magic{i}" : f"rote{i}" for i in list(range(7, 17))},
+
+    # Paradigma personalizados
+    **{f"magic{i}" : f"paradigm{i}" for i in list(range(18, 21))},
+
+    # Paradigma personalizados
+    **{f"magic{i}" : f"practice{i}" for i in list(range(22, 26))},
+
+    # Paradigma personalizados
+    **{f"magic{i}" : f"instrument{i}" for i in list(range(27, 35))},
 
     # Combat: Armas/ataques (6 columnas x 7 filas)
     **{f"combat{c}": f"combat_row{((c - 1) % 6) + 1}_col{((c - 1) // 6) + 1}" for c in range(1, 43)},
 
     # Armor: piezas de armadura
-    **{f"armor{i}": f"armor_piece_{i}" for i in range(1, 7)},
+    "armor1" : "class",
+    "armor2" : "rating",
+    "armor3" : "penalty",
+    **{f"armor{i}": f"armor_description{i}" for i in range(4, 7)},
 
     # Possessions
-    **{f"possessions{i}": f"possession_{i}" for i in range(1, 21)},
+
+    # Gear
+    **{f"possessions{i}" : f"gear{i}" for i in range(1, 7)},
+
+    # Equipment
+    **{f"possessions{i}" : f"equipment{i}" for i in range(11, 17)},
+
+    # Familiar
+    **{f"possessions{i}" : f"familiar{i}" for i in range(7, 11)},
+
+    # Grimoires
+    **{f"possessions{i}" : f"grimoires{i}" for i in range(17, 21)},
 
     # Chantry
-    **{f"chantry{i}": f"chantry_{i}" for i in range(1, 13)},
+
+    # Location
+    **{f"chantry{i}": f"location{i}" for i in range(1, 7)},
+
+    # Location_description
+    **{f"chantry{i}": f"location_description{i}" for i in range(7, 13)},
 
     # History
-    **{f"history{i}": f"history_{i}" for i in range(1, 18)},
+
+    # Awakening
+    **{f"history{i}" : f"awakening{i}" for i in range(1, 6)},
+
+    # Goals
+    **{f"history{i}" : f"goals{i}" for i in range(6, 10)},
+
+    # Seekings
+    **{f"history{i}" : f"seekings{i}" for i in range(10, 14)},
+
+    # Quiets
+    **{f"history{i}" : f"quiets{i}" for i in range(10, 18)},
 
     # Description
-    **{f"description{i}": f"description_{i}" for i in range(1, 23)},
+    "description1" : "age",
+    "description2" : "apparent_age",
+    "description3" : "date_birth",
+    "description4" : "awakening_age",
+    "description5" : "hair",
+    "description6" : "eyes",
+    "description7" : "ethnicity",
+    "description8" : "nationality",
+    "description9" : "height",
+    "description10" : "weight",
+    "description11" : "gender",
+
+    **{f"description{i}": f"description{i}" for i in range(12, 20)},
+
+    "description20" : "avatar",
+
+    **{f"description{i}": f"description{i}" for i in range(21, 23)},
 
     # Merits y Flaws
-    **{f"Merit{i}": f"merit_{i}" for i in range(1, 8)},
-    **{f"Flaw{i}": f"flaw_{i}" for i in range(1, 8)},
-    **{f"type{i}": f"meritflaw_type_{i}" for i in range(1, 15)},
-    **{f"cost{i}": f"meritflaw_cost_{i}" for i in range(1, 15)},
+    **{f"Merit{i}": f"merit{i}" for i in range(1, 8)},
+    **{f"Flaw{i}": f"flaw{i}" for i in range(1, 8)},
+    **{f"type{i}": f"type{i}" for i in range(1, 15)},
+    **{f"cost{i}": f"cost{i}" for i in range(1, 15)},
 }
 
 DOT_YE_VALUES = {"Ye", "Yes", "On"}  # valores activados para dots
 
-DOT_GROUPS_MAGO = {
+DOT_GRUPOS_MAGO_OFICIAL = {
     # ATRIBUTOS
     "strength_dots": ['dot1', 'dot2', 'dot3', 'dot4', 'dot5'],
     "dexterity_dots": ['dot9', 'dot10', 'dot11', 'dot12', 'dot13'],
@@ -232,13 +297,6 @@ DOT_GROUPS_MAGO = {
     "arete_dots": ['bpdot1', 'bpdot2', 'bpdot3', 'bpdot4', 'bpdot5',
                    'bpdot6', 'bpdot7', 'bpdot8', 'bpdot9', 'bpdot10'],
 
-    # QUINTESSENCIA
-    "quintessence_dots": ['qpcheck1', 'qpcheck2', 'qpcheck3', 'qpcheck4',
-                          'qpcheck5', 'qpcheck6', 'qpcheck7', 'qpcheck8',
-                          'qpcheck9', 'qpcheck10', 'qpcheck11', 'qpcheck12',
-                          'qpcheck13', 'qpcheck14', 'qpcheck15', 'qpcheck16',
-                          'qpcheck17', 'qpcheck18', 'qpcheck19', 'qpcheck20'],
-
     # ESFERAS
     "correspondence_dots": ['sdot1', 'sdot2', 'sdot3', 'sdot4', 'sdot5'],
     "entropy_dots":        ['sdot6', 'sdot7', 'sdot8', 'sdot9', 'sdot10'],
@@ -248,14 +306,42 @@ DOT_GROUPS_MAGO = {
     "mind_dots":           ['sdot26', 'sdot27', 'sdot28', 'sdot29', 'sdot30'],
     "prime_dots":          ['sdot31', 'sdot32', 'sdot33', 'sdot34', 'sdot35'],
     "spirit_dots":         ['sdot36', 'sdot37', 'sdot38', 'sdot39', 'sdot40'],
-    "time_dots":           ['sdot41', 'sdot42', 'sdot43', 'sdot44', 'sdot45'],
-
-    # SALUD
-    "health_status": ['health1', 'health2', 'health3', 'health4', 'health5', 'health6', 'health7'],
-
-    # OTRAS TRAZAS (custom dots)
-    "custom_dots_1": ['dot137', 'dot138', 'dot139', 'dot140', 'dot141'],
-    "custom_dots_2": ['dot145', 'dot146', 'dot147', 'dot148', 'dot149'],
-    "custom_dots_3": ['dot217', 'dot218', 'dot219', 'dot220', 'dot221'],
-    "custom_dots_4": ['dot297', 'dot298', 'dot299', 'dot300', 'dot301'],
+    "time_dots":           ['sdot41', 'sdot42', 'sdot43', 'sdot44', 'sdot45']
 }
+
+def contar_quintaesencia_y_paradoja(campos):
+    quintaesencia = 0
+    paradoja = 0
+
+    checks = [f"qpcheck{i}" for i in range(1, 21)]
+    valores = [campos.get(check, {}).get("valor_actual", "") in DOT_YE_VALUES for check in checks]
+
+    # Quintessence: cuenta del inicio
+    for valor in valores:
+        if v:
+            quintaesencia += 1
+        else:
+            break  # solo cuenta los "Yes" consecutivos desde el principio
+
+    # Paradox: cuenta desde el final
+    for valor in reversed(valores):
+        if valor:
+            paradoja += 1
+        else:
+            break  # solo cuenta los "Yes" consecutivos desde el final
+
+    return {
+        "quintessence_dots": quintaesencia,
+        "paradox_dots": paradoja
+    }
+    
+def expandir_quintaesenciae_y_paradoja(qdots=0, pdots=0):
+    resultado = {}
+    for i in range(1, 21):
+        if i <= qdots:
+            resultado[f"qpcheck{i}"] = {"tipo": "texto", "valor_actual": "Ye"}
+        elif (21 - i) <= pdots:
+            resultado[f"qpcheck{i}"] = {"tipo": "texto", "valor_actual": "Ye"}
+        else:
+            resultado[f"qpcheck{i}"] = {"tipo": "texto", "valor_actual": ""}
+    return resultado

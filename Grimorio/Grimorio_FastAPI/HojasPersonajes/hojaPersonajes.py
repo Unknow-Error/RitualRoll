@@ -57,7 +57,7 @@ def compactar_dots_CWoD(datos, diccionario_DOTS):
         resultado[nombre_logico] = cantidad
     return resultado
 
-def expandir_dots(datos_compactados, diccionario_DOTS):
+def expandir_dots_CWoD(datos_compactados, diccionario_DOTS):
     """
         Devuelve un diccionario con el formato de entrada del PDF a partir de los nombres lógicos de dots.
     """
@@ -92,7 +92,7 @@ def mapear_campos_PDF_CWoD_a_JSON(datos, diccionario_MAPEO):
 
     return salida
 
-def mapear_campos_completo_PDF_CWoD_a_JSON(datos, mapeo=CAMPO_MAP_MAGO_EXTENDIDO):
+def mapear_campos_completo_PDF_CWoD_a_JSON(datos, mapeo):
     """
         Devuelve todas las opciones posibles para construir una UI interactiva, con dots inicializados.
     """
