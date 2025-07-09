@@ -1,25 +1,20 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import BaseModel
 from typing import Optional, List
-from ritualError import (
+from RitualAPI.ritualError import (
     custom_http_exception_handler,
     validation_exception_handler,
     global_exception_handler
 )
 import uuid
-import sys
-sys.path.append('/home/Nephelim/Documentos/Programacion/VSCodium-Projects/RitualRoll/Grimorio/Grimorio-FastAPI/Dados')
-from dados import Dado
-from mecanicaDados import Tirada_CWoD_20, TiradaMultiple
-
-
+from Dados.dados import Dado
+from Dados.mecanicaDados import Tirada_CWoD_20, TiradaMultiple
 
 app = FastAPI()
 
 # Handlers de error personalizados:
-from fastapi.exceptions import RequestValidationError
-from starlette.exceptions import HTTPException as StarletteHTTPException
-from fastapi import Request
 
 app.add_exception_handler(StarletteHTTPException, custom_http_exception_handler)
 app.add_exception_handler(RequestValidationError, validation_exception_handler)

@@ -62,7 +62,7 @@ http://127.0.0.1:8000/docs#
 ```bash
 RitualRoll/
 ├── 📜 Grimorio/               # 📖 Backend: lógica oculta, invocaciones API, controladores
-│   ├── Grimorio-FastAPI/              # Módulos del backend (e.g., Dados, Chat, PDF, Mapas)
+│   ├── Grimorio_FastAPI/              # Módulos del backend (e.g., Dados, Chat, PDF, Mapas)
 │   │   ├── dados/             # Lógica de dados y mecánicas
 │   │   ├── chat/             # WebSockets para comunicación
 │   │   ├── pdfs/             # Lectura y escritura de PDFs interactivos
