@@ -339,17 +339,3 @@ def contar_quintaesencia_y_paradoja(campos):
         "quintessence_dots": quintaesencia,
         "paradox_dots": paradoja
     }
-    
-def expandir_quintaesenciae_y_paradoja(qdots=0, pdots=0):
-    """
-        Función que arma el parseo de puntaje de quintaesencia y puntaje paradoja de un JSON a un PDF.
-    """
-    resultado = {}
-    for i in range(1, 21):
-        if i <= qdots:
-            resultado[f"qpcheck{i}"] = {"tipo": "texto", "valor_actual": "Ye"}
-        elif (21 - i) <= pdots:
-            resultado[f"qpcheck{i}"] = {"tipo": "texto", "valor_actual": "Ye"}
-        else:
-            resultado[f"qpcheck{i}"] = {"tipo": "texto", "valor_actual": ""}
-    return resultado
