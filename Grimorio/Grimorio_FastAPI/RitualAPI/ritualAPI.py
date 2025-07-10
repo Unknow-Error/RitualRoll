@@ -113,6 +113,5 @@ def aplicar_regla_del_diez(tirada_id: str):
 # GET : /hojasPersonaje/WoD/{juego}/{id} => Devuelve JSON del personaje
 # POST: /hojasPersonaje/WoD/{juego}/crear_nueva_hoja => Crear nueva ficha
 # PUT: /hojasPersonaje/WoD/{juego}/{id} => Actualizar hoja
-# POST: /hojasPersonaje/WoD/{juego}/{id}/exportar/pdf => Genera plantilla en forma de pdf
 # POST: /hojasPersonaje/WoD/{juego}/{id}/cargar/pdf => Carga pdf interactivo como JSON
 # PUT: /hojasPersonaje/WoD/{juego}/{id}/cargar/pdf => Actualiza una plantilla segun el pdf.
