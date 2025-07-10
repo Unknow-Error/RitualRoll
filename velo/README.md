@@ -2,6 +2,15 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+```bash
+npm init next-app@latest . --use-npm
+npm install -D tailwindcss postcss autoprefixer
+npm install @tailwindcss/cli
+ls -l node_modules/.bin/tailwindcss
+npx tailwindcss init -p
+```
+
+
 First, run the development server:
 
 ```bash
