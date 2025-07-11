@@ -4,10 +4,13 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ```bash
 npm init next-app@latest . --use-npm
-npm install -D tailwindcss postcss autoprefixer
+npm install -D tailwindcss@latest @tailwindcss/postcss autoprefixer postcss
 npm install @tailwindcss/cli
 ls -l node_modules/.bin/tailwindcss
-npx tailwindcss init -p
+npm init -y
+npm install react react-dom
+
+
 ```
 ```bash
 src/app/

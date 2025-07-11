@@ -1,0 +1,43 @@
+/* velo/src/styles/globals.css */
+
+/* Importa las directivas base de Tailwind CSS v4 */
+@import "tailwindcss";
+
+/* Estilos globales para el tema gótico oscuro */
+body {
+  background-color: theme('colors.dark-gothic-bg'); /* Usa el color de fondo definido en tailwind.config.js */
+  color: theme('colors.dark-gothic-text');         /* Usa el color de texto definido en tailwind.config.js */
+  font-family: 'Inter', sans-serif; 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos para elementos comunes para mantener la coherencia */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Estilos para botones de acción */
+.btn-primary {
+  @apply bg-dark-gothic-accent text-white font-bold py-2 px-4 rounded-lg shadow-gothic
+         hover:bg-purple-700 transition-colors duration-300 ease-in-out;
+}
+
+/* Estilos para tarjetas o contenedores de contenido */
+.card {
+  @apply bg-dark-gothic-card p-6 rounded-xl shadow-gothic border border-dark-gothic-border;
+}
+
+/* Estilos para inputs de formulario */
+.input-field {
+  @apply w-full p-3 rounded-lg bg-gray-700 text-dark-gothic-text border border-dark-gothic-border
+         focus:outline-none focus:ring-2 focus:ring-dark-gothic-accent;
+}
+
+/* Estilos para mensajes de error */
+.error-message {
+  @apply text-dark-gothic-danger text-sm mt-1;
+}
