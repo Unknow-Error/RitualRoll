@@ -40,12 +40,8 @@ Se está trabajando en:
 - **Comunicación en tiempo real**:  
   - [Socket.io](https://socket.io/) – WebSockets simples y robustos (MIT)
 
-- **Almacenamiento de archivos (audio, imágenes, PDFs)**:  
-  - [Supabase Storage](https://supabase.com/) – Open source alternativa a Firebase (PostgreSQL + S3 compatible)  
-  - **O bien**: almacenamiento local en disco (`/uploads/`, útil para testing/desarrollo)
-
 - **Base de datos**:  
-  - [PostgreSQL](https://www.postgresql.org/) – Base de datos relacional potente y libre (PostgreSQL License)  
+  - [SQLite](https://www.sqlite.org/) – Base de datos relacional. 
 
 ---
 
@@ -61,46 +57,33 @@ http://127.0.0.1:8000/docs#
 
 ```bash
 RitualRoll/
-├── 📜 Grimorio/               # 📖 Backend: lógica oculta, invocaciones API, controladores
-│   ├── Grimorio_FastAPI/              # Módulos del backend (e.g., Dados, Chat, PDF, Mapas)
-│   │   ├── dados/             # Lógica de dados y mecánicas
-│   │   ├── chat/             # WebSockets para comunicación
-│   │   ├── pdfs/             # Lectura y escritura de PDFs interactivos
-│   │   └── tokens/           # Tokens, imágenes y avatares
-│   ├── Sigilos-NEST/         # Controladores REST o WebSocket (como routes o gateways)
-│   ├── Artifacts/            # Servicios, utilidades compartidas (helpers)
-│   ├── Sanctum/              # Configuración global del servidor (NestJS/FastAPI)
-│   └── main.ts               # Punto de entrada del servidor
+├── 📜 Grimorio/               #  Backend: lógica oculta, invocaciones API, controladores
+│   ├── Grimorio_FastAPI/       # Módulos del backend (e.g., Dados, Chat, PDF, Mapas)
+│   │   ├── Dados/             # Lógica de dados y mecánicas
+│   │   ├── BaseCondenados/    # Manejo de la Base de Datos y API para creacion, inicio y gestion de usuarios
+│   │   ├── HojasPersonajes/  # Lectura y escritura de PDFs interactivos
+│   │   └── RitualAPI/        # Lógica de la API
+│   └── main.py
 
-├── 🧱 Cripta/          # 🗄️ Base de datos y migraciones (la “cripta” de datos)
-│   ├── condenados.db    # Data de los usuarios.
-│   └── migrations/           # Migraciones de cambios
+├── 🧱 Cripta/            # Base de datos y migraciones (la “cripta” de datos)
+│   └──  condenados.db    # Data de los usuarios.
+│   
 
-├── 🌒 Velo/                   # 🌐 Frontend: la “capa visible” del ritual
-│   ├── sigils/               # Componentes reutilizables (hojas, botones de tiradas, etc.)
-│   ├── glyphs/               # Páginas (react-router o Next.js pages)
-│   ├── familiars/            # Hooks personalizados
-│   ├── echoes/               # Contextos globales (estado de usuario, partida, etc.)
+├── 🌒 Velo/                  # Frontend: la “capa visible” del ritual
+│   ├── Sigilos/              # Componentes reutilizables (hojas, botones de tiradas, etc.)
+│   ├── Glifos/               # Páginas (react-router o Next.js pages)
 │   ├── styles/               # Tailwind, fuentes, assets visuales
-│   ├── public/               # Archivos estáticos (favicon, sonidos, imágenes)
-│   └── index.tsx             # Punto de entrada
+│   └── public/               # Archivos estáticos (favicon, sonidos, imágenes)
 
-├── 🧿 Reliquias/                 # 📁 Archivos subidos (tokens, música, imágenes, PDFs)
+├── 🧿 Reliquias/             # Archivos subidos (tokens, música, imágenes, PDFs)
 │   ├── uploads/              # Lo que los jugadores suben
 │   └── generated/            # PDFs y recursos generados
 
-├── 📖 Codex/                  # 📚 Documentación y metadata del proyecto
+├── 📖 Codex/                  # Documentación y metadata del proyecto
 │   ├── README.md
 │   ├── ROADMAP.md
 │   └── rituals.schema.json   # Esquemas JSON para fichas, tiradas, etc.
 
-├── 🛠️ Alchemy/                # ⚗️ Configuración y scripts de desarrollo
-│   ├── docker-compose.yml
-│   ├── .env
-│   ├── .eslintrc, .prettierrc
-│   └── setup.sh              # Script para preparar entorno
-
-└── package.json / pyproject.toml / etc.
 ```
 
 ## 🔮 Objetivos futuros
