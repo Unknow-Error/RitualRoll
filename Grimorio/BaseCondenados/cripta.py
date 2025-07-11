@@ -112,11 +112,11 @@ def registrar_usuario(u: UsuarioRegistro, session: Session = Depends(get_session
     # Crea un nuevo usuario con la contraseña hasheada y los nuevos campos
     nuevo = Usuario(
         email=u.email,
-        nombreUsuario=u.username,
+        nombreUsuario=u.nombreUsuario,
         avatar_url=u.avatar_url,
         bio=u.bio,
         timezone=u.timezone,
-        lenguaje=u.language,
+        lenguaje=u.lenguaje,
         password_hash=pwd_context.hash(u.password)
     )
     session.add(nuevo)
