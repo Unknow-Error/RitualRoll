@@ -17,12 +17,34 @@ from RitualAPI.ritualError import (
     global_exception_handler
 )
 
-app = FastAPI()
+from BaseCondenados.cripta import router as cripta_router
+from BaseCondenados.baseDatos import crear_db_y_tablas
+
+app = FastAPI(
+    title="RitualRoll API",
+    description="API para mecánicas de dados, personajes y gestión de usuarios.",
+    version="0.1.0",
+)
+
+@app.on_event("startup")
+def on_startup():
+    """
+        Función que se ejecuta al iniciar la aplicación.
+        Crea las tablas de la base de datos si no existen.
+    """
+    print("Iniciando la aplicación FastAPI...")
+    crear_db_y_tablas()
+    print("Tablas de la base de datos verificadas/creadas.")
 
 # Registra los exception handlers
 app.add_exception_handler(StarletteHTTPException, custom_http_exception_handler)
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 app.add_exception_handler(Exception, global_exception_handler)
 
-# Incluye las rutas
+# Rutas
+app.include_router(cripta_router) 
 app.include_router(ritual_api_app)
+
+@app.get("/")
+async def read_root():
+    return {"message": "Bienvenido a RitualRoll API"}

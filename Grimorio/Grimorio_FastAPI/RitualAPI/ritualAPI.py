@@ -68,7 +68,7 @@ def crear_tirada_multiple(input: TiradaMultipleEntrada):
     
     return {
         "tirada_id": tirada_id,
-        "resultado": tirada.valoresJson
+        "resultado": tirada.resultadosCompleto
     }
 
 # Para las Tiradas del Sistema CWod 20 :

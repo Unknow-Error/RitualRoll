@@ -94,10 +94,10 @@ class TiradaMultiple:
             Formato de todos los resultados en JSON.
         """
         
-        resultadosComplejosJson = json.dump(self.resultadosCompleto)
-        self.resultadosCompletoJson = resultadosComplejosJson
+        resultadosCompletoJson = json.dumps(self.resultadosCompleto)
+        self.resultadosCompletoJson = resultadosCompletoJson
         
-        return resultadosComplejosJson
+        return resultadosCompletoJson
     
     def __str__(self):
         stringSalida = ""

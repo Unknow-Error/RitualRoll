@@ -73,8 +73,7 @@ RitualRoll/
 │   └── main.ts               # Punto de entrada del servidor
 
 ├── 🧱 Cripta/          # 🗄️ Base de datos y migraciones (la “cripta” de datos)
-│   ├── runes.sql             # Scripts SQL iniciales
-│   ├── schema.prisma         # (opcional) Prisma u ORM equivalente
+│   ├── condenados.db    # Data de los usuarios.
 │   └── migrations/           # Migraciones de cambios
 
 ├── 🌒 Velo/                   # 🌐 Frontend: la “capa visible” del ritual
@@ -126,6 +125,11 @@ Y usás NestJS para:
      Autenticación (JWT, OAuth)
 
      Push notifications y comunicación en vivo con los jugadores
+
+
+python -m venv venv
+source venv/bin/activate
+pip install fastapi uvicorn sqlmodel passlib[bcrypt] pydantic
 
 ## 📜 Licencia
 

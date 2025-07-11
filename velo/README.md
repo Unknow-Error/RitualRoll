@@ -9,7 +9,18 @@ npm install @tailwindcss/cli
 ls -l node_modules/.bin/tailwindcss
 npx tailwindcss init -p
 ```
-
+```bash
+src/app/
+├── layout.js              # Wrapper general
+├── page.js                # Página principal (login o redirect)
+├── dashboard/
+│   └── page.js            # Menú de usuario logeado
+├── partida/
+│   └── [id]/
+│       └── page.js        # Página dinámica de cada partida
+└── login/
+    └── page.js            # login
+```
 
 First, run the development server:
 
