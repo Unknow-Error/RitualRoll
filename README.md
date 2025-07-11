@@ -70,27 +70,7 @@ RitualRoll/
 │   
 
 ├── 🌒 Velo/                  # Frontend: la “capa visible” del ritual
-│   ├── public/               # Archivos estáticos (index.html, favicon, etc.)
-│   │    └── index.html        # Punto de entrada principal de la aplicación React
-│   ├── src/                  # Código fuente de React
-│   │     ├── Sigilos/          # Componentes reutilizables
-│   │     │   ├── DadoBoton.js
-│   │     │   ├── TiradaMultipleBoton.js
-│   │     │   ├── TiradaWoDBoton.js
-│   │     │   └── index.js      # Archivo para exportar componentes fácilmente
-│   │     ├── Glifos/           # Páginas de la aplicación
-│   │     │       ├── PaginaBienvenida.js
-│   │     │       ├── PaginaMenuJuego.js
-│   │     │       ├── PaginaJuegoPartida.js
-│   │     │       └── index.js      # Archivo para exportar páginas fácilmente
-│   │     ├── styles/           # Estilos globales y configuración de Tailwind
-│   │     │       └── globals.css
-│   │     ├── api.js            # Funciones para interactuar con el backend
-│   │     ├── App.js          # Componente principal de la aplicación (manejo de rutas)
-│   │     └── index.js          # Punto de entrada de React
-│   ├── tailwind.config.js    # Configuración de Tailwind CSS
-│   ├── postcss.config.js     # Configuración de PostCSS
-│   └──  package.json          # Metadatos del proyecto y dependencias
+│  
 │ 
 ├── 🧿 Reliquias/             # Archivos subidos (tokens, música, imágenes, PDFs)
 │   ├── uploads/              # Lo que los jugadores suben
