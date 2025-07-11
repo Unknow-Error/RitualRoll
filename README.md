@@ -76,10 +76,6 @@ RitualRoll/
 │   ├── uploads/              # Lo que los jugadores suben
 │   └── generated/            # PDFs y recursos generados
 
-├── 📖 Codex/                  # Documentación y metadata del proyecto
-│   ├── README.md
-│   ├── ROADMAP.md
-│   └── rituals.schema.json   # Esquemas JSON para fichas, tiradas, etc.
 
 ```
 
@@ -87,24 +83,6 @@ RitualRoll/
 
 - Soporte completo para *Vampire*, *Mage*, *Werewolf* y demás líneas de WoD.
 - FastAPI para las partes que requieren:
-
-     Procesamiento de PDFs (con pdfrw, reportlab, etc.)
-
-     Exportación de hojas como XML o JSON
-
-    Lógica avanzada de IA o cálculos mágicos raros (por ejemplo, decisiones automáticas de escenas)
-
-     Análisis de audio (si hacés algo con música o sincronización)
-
-Y usás NestJS para:
-
-     API principal REST para usuarios, partidas, fichas
-
-     WebSockets (chat, dados, mapa en tiempo real)
-
-     Autenticación (JWT, OAuth)
-
-     Push notifications y comunicación en vivo con los jugadores
 
 
 ## 📜 Licencia

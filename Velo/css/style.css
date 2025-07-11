@@ -1,0 +1,55 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0; padding: 0;
+  background: #23272f;
+  color: #f0f0f0;
+}
+.login-container, #main-container, #session-list {
+  margin: 2em auto;
+  max-width: 800px;
+  background: #2e3340;
+  padding: 2em;
+  border-radius: 8px;
+}
+input, button, textarea {
+  margin: .5em 0;
+  padding: .5em;
+  border-radius: 3px;
+  border: none;
+  font-size: 1em;
+}
+button {
+  background: #5c82fa;
+  color: #fff;
+  cursor: pointer;
+}
+button:hover {
+  background: #4661c5;
+}
+#main-container {
+  display: flex;
+  gap: 2em;
+}
+#left-panel {
+  flex: 1;
+}
+#map-panel {
+  flex: 2;
+  position: relative;
+}
+#game-map {
+  background: #181a20;
+  border: 2px solid #444;
+  display: block;
+  margin: 0 auto;
+}
+#chat-messages {
+  max-height: 200px;
+  overflow-y: auto;
+  background: #1a1c22;
+  padding: .5em;
+  border-radius: 4px;
+}
+#layer-controls {
+  margin-top: 1em;
+}
